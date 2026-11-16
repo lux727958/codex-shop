@@ -1,0 +1,14 @@
+const dialog = document.querySelector('#booking');
+const form = document.querySelector('#booking-form');
+const result = document.querySelector('#booking-result');
+const dateInput = form.elements.date;
+const now = new Date();
+const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+dateInput.min = today;
+dateInput.value = today;
+document.querySelectorAll('[data-book]').forEach(button => button.addEventListener('click', () => {form.hidden = false; result.hidden = true; dialog.showModal();}));
+document.querySelector('.close').addEventListener('click', () => dialog.close());
+dialog.addEventListener('click', event => {if(event.target === dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+form.addEventListener('submit', event => {event.preventDefault();if(dateInput.value<today){dateInput.setCustomValidity('请选择今天或之后的日期');dateInput.reportValidity();return;}form.hidden=true;result.hidden=false;result.textContent=`${form.elements.name.value.trim()}，已生成您的预约意向：${dateInput.value} ${form.elements.time.value}，${form.elements.guests.value}。此为演示，尚未向门店提交，请待门店联系方式公布后确认订位。`;});
+dateInput.addEventListener('input',()=>dateInput.setCustomValidity(''));
+document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(item=>{item.classList.toggle('selected',item===button);item.setAttribute('aria-pressed',String(item===button));});document.querySelectorAll('[data-category]').forEach(dish=>dish.hidden=button.dataset.filter!=='all'&&dish.dataset.category!==button.dataset.filter);}));
