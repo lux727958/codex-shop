@@ -6,7 +6,7 @@ export const dishes = [
     "alt": "罗勒青酱意面",
     "label": "CHEF'S PICK · 主厨推荐",
     "name": "罗勒青酱手工意面",
-    "price": 68,
+    "price": 250,
     "ingredients": "新鲜罗勒 / 帕尔马干酪 / 烤松子"
   },
   {
